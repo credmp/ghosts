@@ -27,9 +27,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/credmp/ghosts"> -->
-  <!--   <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
-  <!-- </a> -->
+  <a href="https://github.com/credmp/ghosts">
+    <img src="docs/icon-ghosts-128.png" alt="Logo" width="128" height="128">
+  </a>
 
 <h3 align="center">Go Hosts file editor</h3>
 
