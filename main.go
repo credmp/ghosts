@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/credmp/gohed/cmd"
+	"gitlab.com/credmp/ghosts/cmd"
 )
 
 func main() {

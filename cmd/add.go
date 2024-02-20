@@ -9,7 +9,7 @@ import (
 	"net"
 
 	"github.com/spf13/cobra"
-	"gitlab.com/credmp/gohed/internal"
+	"gitlab.com/credmp/ghosts/internal"
 )
 
 // addCmd represents the add command
