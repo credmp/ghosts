@@ -15,8 +15,7 @@ import (
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add [hostname] [ip]",
-	Short: "Add a hostname",
-	Long:  `Add a hostname to the hosts file`,
+	Short: "Add a hostname with an ip address",
 	Run:   addHostname,
 	Args:  cobra.MinimumNArgs(2),
 }
@@ -26,12 +25,12 @@ func addHostname(cmd *cobra.Command, args []string) {
 	if ip == nil {
 		log.Fatal("Could not parse IP")
 	}
-	he := internal.NewHostEntry(args[0], ip)
-	fmt.Printf("%v\n", he)
+
+	hf := internal.NewHostFile(hostsfile)
+
+	fmt.Printf("%v\n", hf)
 }
 
 func init() {
 	rootCmd.AddCommand(addCmd)
-	rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
-
 }
