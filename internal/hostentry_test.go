@@ -27,10 +27,10 @@ func TestCanResolve(t *testing.T) {
 	}{
 		"empty hostentry":     {input: "example.com", he: HostEntry{}, want: false},
 		"empty input":         {input: "", he: HostEntry{}, want: false},
-		"empty input with he": {input: "", he: HostEntry{name: "example.com"}, want: false},
-		"same name":           {input: "example.com", he: HostEntry{name: "example.com"}, want: true},
-		"he is subdomain":     {input: "example.com", he: HostEntry{name: "sub.example.com"}, want: false},
-		"input is subdomain":  {input: "sub.example.com", he: HostEntry{name: "example.com"}, want: true},
+		"empty input with he": {input: "", he: HostEntry{Name: "example.com"}, want: false},
+		"same name":           {input: "example.com", he: HostEntry{Name: "example.com"}, want: true},
+		"he is subdomain":     {input: "example.com", he: HostEntry{Name: "sub.example.com"}, want: false},
+		"input is subdomain":  {input: "sub.example.com", he: HostEntry{Name: "example.com"}, want: true},
 	}
 
 	for name, tc := range tests {
@@ -49,10 +49,10 @@ func TestWouldResolve(t *testing.T) {
 	}{
 		"empty hostentry":     {input: "example.com", he: HostEntry{}, want: false},
 		"empty input":         {input: "", he: HostEntry{}, want: false},
-		"empty input with he": {input: "", he: HostEntry{name: "example.com"}, want: false},
-		"same name":           {input: "example.com", he: HostEntry{name: "example.com"}, want: true},
-		"he is subdomain":     {input: "example.com", he: HostEntry{name: "sub.example.com"}, want: true},
-		"input is subdomain":  {input: "sub.example.com", he: HostEntry{name: "example.com"}, want: false},
+		"empty input with he": {input: "", he: HostEntry{Name: "example.com"}, want: false},
+		"same name":           {input: "example.com", he: HostEntry{Name: "example.com"}, want: true},
+		"he is subdomain":     {input: "example.com", he: HostEntry{Name: "sub.example.com"}, want: true},
+		"input is subdomain":  {input: "sub.example.com", he: HostEntry{Name: "example.com"}, want: false},
 	}
 
 	for name, tc := range tests {
@@ -64,16 +64,16 @@ func TestWouldResolve(t *testing.T) {
 }
 
 func TestSwapIn(t *testing.T) {
-	he := HostEntry{name: "old"}
+	he := HostEntry{Name: "old"}
 	he.SwapInName("new")
 
-	if len(he.aliasses) != 1 {
+	if len(he.Aliasses) != 1 {
 		t.Fatalf("Expected aliasses to contain an entry: %v", he)
 	}
-	if he.aliasses[0] != "old" {
+	if he.Aliasses[0] != "old" {
 		t.Fatalf("Expected aliasses to contain the 'old' entry: %v", he)
 	}
-	if he.name != "new" {
+	if he.Name != "new" {
 		t.Fatalf("Expected name to be the 'new' entry: %v", he)
 	}
 }

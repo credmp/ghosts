@@ -14,7 +14,7 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "gohed",
+	Use:   "ghosts",
 	Short: "A host editing tool",
 	Long:  `A host editing tool for a finer generation`,
 	// Uncomment the following line if your bare application

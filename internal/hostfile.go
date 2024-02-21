@@ -7,7 +7,7 @@ import (
 )
 
 type Hostfile struct {
-	name string
+	Entries []*HostEntry
 }
 
 func NewHostFile(file string) *Hostfile {
@@ -18,18 +18,17 @@ func NewHostFile(file string) *Hostfile {
 		log.Fatal("Failed to read file contents, reason: ", err)
 	}
 	defer f.Close()
+	hf := Hostfile{}
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		hf, _ := ParseLine(scanner.Text())
-		log.Println(hf)
+		he, _ := ParseLine(scanner.Text())
+		hf.Entries = append(hf.Entries, he)
 	}
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal("Error reading file: ", err)
 	}
 
-	return &Hostfile{
-		name: "Arjen",
-	}
+	return &hf
 }

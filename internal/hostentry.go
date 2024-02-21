@@ -10,25 +10,25 @@ import (
 
 // Host entry structure that resembles a line in a hosts file
 type HostEntry struct {
-	name     string
-	ip       net.IP
-	aliasses []string
-	comment  string
+	Name     string
+	IP       net.IP
+	Aliasses []string
+	Comment  string
 }
 
 // Create a new HostEntry with the name and ip address
 func NewHostEntry(name string, ip net.IP) *HostEntry {
 	return &HostEntry{
-		name: name,
-		ip:   ip,
+		Name: name,
+		IP:   ip,
 	}
 }
 
 func (he *HostEntry) CanResolve(name string) bool {
-	if len(he.name) == 0 {
+	if len(he.Name) == 0 {
 		return false
 	}
-	if strings.HasSuffix(name, he.name) {
+	if strings.HasSuffix(name, he.Name) {
 		return true
 	}
 
@@ -36,11 +36,11 @@ func (he *HostEntry) CanResolve(name string) bool {
 }
 
 func (he *HostEntry) WouldResolve(name string) bool {
-	if len(name) == 0 || len(he.name) == 0 {
+	if len(name) == 0 || len(he.Name) == 0 {
 		return false
 	}
 
-	if strings.HasSuffix(he.name, name) {
+	if strings.HasSuffix(he.Name, name) {
 		return true
 	}
 
@@ -48,9 +48,9 @@ func (he *HostEntry) WouldResolve(name string) bool {
 }
 
 func (he *HostEntry) SwapInName(name string) {
-	oldname := he.name
-	he.name = name
-	he.aliasses = append(he.aliasses, oldname)
+	oldname := he.Name
+	he.Name = name
+	he.Aliasses = append(he.Aliasses, oldname)
 }
 
 func (he *HostEntry) ReplaceIP(ip string) {
@@ -58,17 +58,17 @@ func (he *HostEntry) ReplaceIP(ip string) {
 	if new_ip == nil {
 		log.Fatal("Failed to convert ip address", ip)
 	}
-	he.ip = new_ip
+	he.IP = new_ip
 }
 
 func (he *HostEntry) AddAlias(name string) {
-	for _, e := range he.aliasses {
+	for _, e := range he.Aliasses {
 		if e == name {
 			return // already in the list
 		}
 	}
 
-	he.aliasses = append(he.aliasses, name)
+	he.Aliasses = append(he.Aliasses, name)
 }
 
 // Parse a string into a HostEntry
@@ -83,7 +83,7 @@ func ParseLine(line string) (*HostEntry, error) {
 	if comment.MatchString(line) {
 
 		result := ApplyRegexp(comment, line)
-		return &HostEntry{comment: result["comment"]}, nil
+		return &HostEntry{Comment: result["comment"]}, nil
 	}
 
 	result := ApplyRegexp(entry, line)
@@ -106,10 +106,10 @@ func ParseLine(line string) (*HostEntry, error) {
 	}
 
 	he := HostEntry{
-		ip:       ip,
-		name:     result["name"],
-		comment:  result["comment"],
-		aliasses: aliasses,
+		IP:       ip,
+		Name:     result["name"],
+		Comment:  result["comment"],
+		Aliasses: aliasses,
 	}
 	return &he, errors.New("Could not parse line")
 }
